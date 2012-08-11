@@ -21,10 +21,12 @@ public class URLListener implements Listener {
 	}
 
 	@EventHandler 
-	public void onAsyncPlayerChat (AsyncPlayerChatEvent event) {
+	public void onAsyncPlayerChat(AsyncPlayerChatEvent event){
 		String msg = event.getMessage();
 		String[] msga = msg.split(" ");
 		String nMsg = "";
+		System.out.println(event.getFormat());
+		
 		for (String x : msga) {
 			if(x.contains(".com")||x.contains(".net")||x.contains(".nl")||x.contains(".org")) {
 				try {
@@ -47,9 +49,10 @@ public class URLListener implements Listener {
 				continue;
 			}
 		}
-		//Player player = event.getPlayer();
+		Player player = event.getPlayer();
+		event.setFormat(format(player, msg));
 		//plugin.getServer().broadcastMessage(format(player, msg));
-		event.setCancelled(true);
+		//event.setCancelled(true);
 	}
 	
 	private String format(Player player, String msg) {
