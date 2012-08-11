@@ -25,7 +25,6 @@ public class URLListener implements Listener {
 		String msg = event.getMessage();
 		String[] msga = msg.split(" ");
 		String nMsg = "";
-		System.out.println(event.getFormat());
 		
 		for (String x : msga) {
 			if(x.contains(".com")||x.contains(".net")||x.contains(".nl")||x.contains(".org")) {
