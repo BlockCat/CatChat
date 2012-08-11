@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 
 public class URLListener implements Listener {
@@ -20,7 +21,7 @@ public class URLListener implements Listener {
 	}
 
 	@EventHandler 
-	public void onPlayerChat (PlayerChatEvent event) {
+	public void onAsyncPlayerChat (AsyncPlayerChatEvent event) {
 		String msg = event.getMessage();
 		String[] msga = msg.split(" ");
 		String nMsg = "";
