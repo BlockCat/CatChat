@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerChatEvent;
 
 public class URLListener implements Listener {
 	
@@ -55,8 +54,8 @@ public class URLListener implements Listener {
 	}
 	
 	private String format(Player player, String msg) {
-		String prefix;
-		String suffix;
+		String prefix = "";
+		String suffix = "";
 		String format = plugin.getFormat();
 		
 		if (format.contains("+prefix")) {
@@ -72,7 +71,7 @@ public class URLListener implements Listener {
 			suffix = URLshort.config.getString("Suffix." + URLshort.permission.getPlayerGroups(player)[0]);
 			format = format.replace("+suffix", suffix);
 			} catch (Exception e) {
-				format.replace("+suffix", "");
+				format = format.replace("+suffix", "");
 			}
 		}
 		if (format.contains("+name")) {

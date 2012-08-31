@@ -29,8 +29,6 @@ public class Broadcaster extends Thread {
 		String nMsg = "";
 		try {
 			HttpURLConnection urlConnection = (HttpURLConnection) pageURL.openConnection();
-			int respCode = urlConnection.getResponseCode();
-			String response = urlConnection.getResponseMessage();
 
 			InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 			Reader r = new InputStreamReader(in);
