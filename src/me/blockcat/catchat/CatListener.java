@@ -47,14 +47,18 @@ public class CatListener implements Listener {
 				continue;
 			}
 		}
+		
+		if (CatChat.chat) {
 		Player player = event.getPlayer();
-		event.setFormat(format(player, msg));		
+		event.setFormat(format(player, msg));
+		}
 	}
 	
 	private String format(Player player, String msg) {
 		String prefix = "";
 		String suffix = "";
 		String format = plugin.getFormat();
+		
 		
 		if (format.contains("+prefix")) {
 			try {

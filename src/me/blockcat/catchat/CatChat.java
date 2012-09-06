@@ -10,6 +10,7 @@ public class CatChat extends JavaPlugin {
 
 	public static Permission permission = null;
 	public String format;
+	public static boolean chat;
 	public static FileConfiguration config;
 
 	public void onEnable() {		
@@ -17,6 +18,12 @@ public class CatChat extends JavaPlugin {
 		config = this.getConfig();
 		
 		format = config.getString("Format");
+		
+		if(!config.contains("chat-enable")) {
+			config.set("chat-enable", false);
+		}
+		chat = config.getBoolean("chat-enable");
+		
 		getServer().getPluginManager().registerEvents(new CatListener(this),this);
 	}
 	public void onDissable() {
