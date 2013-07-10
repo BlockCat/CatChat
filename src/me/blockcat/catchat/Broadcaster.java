@@ -16,18 +16,23 @@ public class Broadcaster extends Thread {
 	private URL pageURL;
 	private CatChat plugin;
 	private Player player;
+	private String[] msga;
+	private String oldURL;
 
 
-	public Broadcaster(URL url, CatChat instance, Player player) {
+	public Broadcaster(URL url, CatChat instance, Player player, String[] msga, String x) {
 		pageURL = url;
 		plugin = instance;
 		this.player = player;
+		this.msga = msga;
+		this.oldURL = x;
 	}
 
 	@Override
 	public void run() {
 		String nMsg = "";
 		try {
+			
 			HttpURLConnection urlConnection = (HttpURLConnection) pageURL.openConnection();
 
 			InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -41,7 +46,8 @@ public class Broadcaster extends Thread {
 
 			}
 			String d = Character.toString('"');
-			all = "okij.in/" +all.split(d)[7];
+			//all = "okij.in/" +all.split(d)[7];
+			all = all.replace("http://", "");
 			nMsg = nMsg + all;
 			in.close();
 			r.close();
@@ -50,10 +56,16 @@ public class Broadcaster extends Thread {
 			return;
 		}
 
-		Server server = plugin.getServer();
-
-		server.broadcastMessage(ChatColor.GREEN + player.getDisplayName() + ChatColor.YELLOW +" has shared a link:");
-		server.broadcastMessage(ChatColor.GOLD + nMsg);
+		{
+			String msg = "";
+			for (String x : msga) {
+				if (x.equalsIgnoreCase(oldURL)) {
+					x = nMsg;
+				}
+				msg += x +" ";
+			}
+			player.chat(msg);
+		}
 
 
 	}
