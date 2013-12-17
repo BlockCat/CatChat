@@ -1,6 +1,6 @@
 name: CatChat
 main: me.blockcat.catchat.CatChat
-version: 2.0
+version: 2.2
 commands:
   catchat:
     aliases: [chat, cchat]

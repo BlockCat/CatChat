@@ -10,10 +10,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class CatChat extends JavaPlugin {
 
 	public static Permission permission = null;
-	public static String denyKind;
 	public static FileConfiguration config;
-	public String format;
+	public static String denyKind;
+	
+	public ChannelHandler channelHandler;
 	public CatListener listener;
+	public String channelFormat = "";
+	public String format = "";
 
 	public void onEnable() {		
 		setupPermissions();
@@ -22,6 +25,7 @@ public class CatChat extends JavaPlugin {
 		this.getCommand("catchat").setExecutor(new ChatCommands(this));
 
 		listener = new CatListener(this);
+		channelHandler = new ChannelHandler(this);
 		getServer().getPluginManager().registerEvents(listener, this);
 
 	}
@@ -33,11 +37,18 @@ public class CatChat extends JavaPlugin {
 			config.set("Format", "<+prefix+name+suffix&f> +msg");
 		}
 		format = config.getString("Format");
+		
+		if(!config.contains("Channel-format")) {
+			config.set("Channel-format", "&f<+prefix &f+name> &7 +msg");
+		}
+		channelFormat = config.getString("Channel-format");
 
 		if(!config.contains("censor-link")) {
 			config.set("censor-link", "<dots>");
 		}
 		denyKind = config.getString("censor-link");
+		config.addDefault("Channel-format", "&f<+prefix &f+name> &7 +msg");
+		this.saveDefaultConfig();
 	}
 
 	private boolean setupPermissions()
@@ -53,6 +64,15 @@ public class CatChat extends JavaPlugin {
 	public String getFormat() {
 		return format;
 	}
+	
+	public String getChannelFormat() {
+		return channelFormat;
+	}
+	
+	public ChannelHandler getChannelHandler() {
+		return this.channelHandler;
+	}
+	
 	public static boolean hasPerms(Player player, String string) {
 		if (player.isOp()) return true;
 		return permission.has(player, string);

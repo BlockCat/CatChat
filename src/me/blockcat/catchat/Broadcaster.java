@@ -7,8 +7,6 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
 public class Broadcaster extends Thread {
@@ -46,8 +44,7 @@ public class Broadcaster extends Thread {
 
 			}
 			String d = Character.toString('"');
-			//all = "okij.in/" +all.split(d)[7];
-			all = all.replace("http://", "");
+			all = "okij.in/" +all.split(d)[7];
 			nMsg = nMsg + all;
 			in.close();
 			r.close();
